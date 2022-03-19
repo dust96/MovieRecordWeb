@@ -1,9 +1,9 @@
 
 <template>
   <div class="calendar_content">
-    <SelectMonth></SelectMonth>
-    <DateDiv></DateDiv>
+    <SelectMonth v-bind:currentyearmonth="this.currentYearMonth" v-on:changemonth="setCurrentYearMonth"></SelectMonth>
     <DayDiv></DayDiv>
+    <DateDiv v-bind:currentyearmonth="this.currentYearMonth" ></DateDiv>
   </div>
 </template>
 
@@ -19,6 +19,37 @@
         DateDiv,
         DayDiv,
         SelectMonth
+    },
+    data(){
+      return {
+        currentYear : 0,
+        currentMonth: 0,
+        currentYearMonth:{}
+      }
+    },
+    created(){
+      const date = new Date();
+      this.currentYear = date.getFullYear();
+      this.currentMonth = date.getMonth()+1;
+      this.currentYearMonth.currentYear = date.getFullYear();
+      this.currentYearMonth.currentMonth = date.getMonth()+1;
+    },
+    methods:{
+      formatMonthDate(num){
+        let formatnum = "";
+        if(num<10){
+          formatnum = "0"+num;
+        }
+        else {
+          formatnum = num;
+        }
+
+        return formatnum;
+      },
+      setCurrentYearMonth(data){
+        this.currentYearMonth.currentYear = data.currentYear;
+        this.currentYearMonth.currentMonth = data.currentMonth;
+      }
     }
   }
    

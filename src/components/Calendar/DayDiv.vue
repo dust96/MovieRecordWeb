@@ -25,7 +25,7 @@
 <style>
 .day-div{
     width:100%;
-    height:80%;
+    height:5%;
     text-align: center;
 }   
 
