@@ -35,7 +35,6 @@
       this.year = this.currentyearmonth.currentYear;
       this.month = this.currentyearmonth.currentMonth;
 
-      console.log(this.year, this.month)
     },
     methods: {
       getCalendarDate(){
@@ -68,6 +67,7 @@
               date_data['date'] = prevLastStartDate + day;
               date_data['yearmonthdate'] = value_name;
               date_data['transparency'] = true;
+              date_data['weekend'] = this.$parent.checkWeekend(this.year,this.month,prevLastStartDate + day);
               weekarr.push(date_data);
             }
           }
@@ -77,6 +77,7 @@
           date_data['date'] = date;
           date_data['yearmonthdate'] = value_name;
           date_data['transparency'] = false;
+          date_data['weekend'] = this.$parent.checkWeekend(this.year,this.month,date);
           weekarr.push(date_data);
           if(weekarr.length == 7){
             datearr.push(weekarr);
@@ -93,6 +94,7 @@
             date_data['date'] = i;
             date_data['yearmonthdate'] = value_name;
             date_data['transparency'] = true;
+            date_data['weekend'] = this.$parent.checkWeekend(this.year,this.month+1,i);
             weekarr.push(date_data);
           }
         }
@@ -113,7 +115,7 @@
     width:100%;
     height:90%;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   }   
 
 </style>

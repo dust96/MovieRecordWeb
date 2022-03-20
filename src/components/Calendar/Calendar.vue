@@ -3,7 +3,7 @@
   <div class="calendar_content">
     <SelectMonth v-bind:currentyearmonth="this.currentYearMonth" v-on:changemonth="setCurrentYearMonth"></SelectMonth>
     <DayDiv></DayDiv>
-    <DateDiv v-bind:currentyearmonth="this.currentYearMonth" ></DateDiv>
+    <DateDiv v-bind:currentyearmonth="this.currentYearMonth" :key="this.currentYearMonth.currentMonth"></DateDiv>
   </div>
 </template>
 
@@ -22,15 +22,22 @@
     },
     data(){
       return {
-        currentYear : 0,
-        currentMonth: 0,
-        currentYearMonth:{}
+        currentYearMonth:{
+          currentYear : 0,
+          currentMonth: 0
+        }
+      }
+    },
+    watch:{
+      currentYearMonth: {
+        handler: function (){
+         
+        },
+        deep:true
       }
     },
     created(){
       const date = new Date();
-      this.currentYear = date.getFullYear();
-      this.currentMonth = date.getMonth()+1;
       this.currentYearMonth.currentYear = date.getFullYear();
       this.currentYearMonth.currentMonth = date.getMonth()+1;
     },
@@ -45,6 +52,16 @@
         }
 
         return formatnum;
+      },
+      checkWeekend(year,month,date){
+        const checkdate = new Date(year, month-1,date);
+        const checkday = checkdate.getDay();
+        if(checkday === 0 || checkday === 6){
+          return true;
+        }
+        else {
+          return false;
+        }
       },
       setCurrentYearMonth(data){
         this.currentYearMonth.currentYear = data.currentYear;

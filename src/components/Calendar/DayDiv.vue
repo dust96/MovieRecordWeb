@@ -1,17 +1,13 @@
 
 <template>
     <div class="day-div">
-        <b-container class="bv-example-row">
-            <b-row>
-                <b-col>SUN</b-col>
-                <b-col>MON</b-col>
-                <b-col>TUE</b-col>
-                <b-col>WED</b-col>
-                <b-col>THU</b-col>
-                <b-col>FRI</b-col>
-                <b-col>SAT</b-col>
-            </b-row>
-        </b-container>
+        <div>SUN</div>
+        <div>MON</div>
+        <div>TUE</div>
+        <div>WED</div>
+        <div>THU</div>
+        <div>FRI</div>
+        <div>SAT</div>
     </div>
 </template>
 
@@ -26,7 +22,14 @@
 .day-div{
     width:100%;
     height:5%;
-    text-align: center;
+    text-align: right;
+    display:grid;
+    font-size: 14px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    border-bottom : 1px solid rgba(58, 50, 74,0.2);
 }   
+.day-div div{
+    padding:5%;
+}
 
 </style>

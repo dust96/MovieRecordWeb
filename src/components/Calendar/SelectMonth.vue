@@ -5,7 +5,7 @@
             <b-row>
                 <b-col @click="prevMonth"><b-icon icon="chevron-left" ></b-icon></b-col>
                 <b-col>{{currentYearMonth}}</b-col>
-                <b-col><b-icon icon="chevron-right"></b-icon></b-col>
+                <b-col @click="nextMonth"><b-icon icon="chevron-right"></b-icon></b-col>
             </b-row>
         </b-container>
     </div>
@@ -40,6 +40,21 @@
             let prevdate = new Date(prevyear, prevmonth-1,1);
             this.year = prevdate.getFullYear();
             this.month = prevdate.getMonth()+1;
+            this.currentYearMonth = this.year+"년 " + this.$parent.formatMonthDate(this.month)+"월"; 
+            this.currentyearmonth.currentYear = this.year;
+            this.currentyearmonth.currentMonth = this.month;
+            this.$emit('changemonth',this.currentyearmonth);
+        },
+        nextMonth(){
+            let nextyear = this.year;
+            let nextmonth = this.month+1;
+            if(nextmonth == 0){
+                nextyear = this.year +1;
+                nextmonth = 1;
+            }
+            let nextdate = new Date(nextyear, nextmonth-1,1);
+            this.year = nextdate.getFullYear();
+            this.month = nextdate.getMonth()+1;
             this.currentYearMonth = this.year+"년 " + this.$parent.formatMonthDate(this.month)+"월"; 
             this.currentyearmonth.currentYear = this.year;
             this.currentyearmonth.currentMonth = this.month;
