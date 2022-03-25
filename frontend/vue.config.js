@@ -8,7 +8,8 @@ module.exports = {
             '^/api': ''
           } 
         } 
-      } 
+      } ,
     },
     outputDir: '../backend/public',  //② 배포 파일의 위치를 지정
   }
+  

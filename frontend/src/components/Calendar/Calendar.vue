@@ -73,9 +73,6 @@
 </script>
 
 <style>
-    .calendar_content{
-        width:100%;
-        height: 100%;
-    }
+    
 
 </style>

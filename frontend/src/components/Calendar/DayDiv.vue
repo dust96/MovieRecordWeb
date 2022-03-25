@@ -19,17 +19,5 @@
 </script>
 
 <style>
-.day-div{
-    width:100%;
-    height:5%;
-    text-align: right;
-    display:grid;
-    font-size: 14px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    border-bottom : 1px solid rgba(58, 50, 74,0.2);
-}   
-.day-div div{
-    padding:5%;
-}
 
 </style>

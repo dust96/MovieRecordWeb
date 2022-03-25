@@ -3,11 +3,39 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var logger = require('morgan');
+const history = require('connect-history-api-fallback');
+
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+
+
+
+/*============mysql 연동===================== */
+
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host:'localhost',
+  port: 3306,
+  user: 'root',
+  password: 'qaplwsok01',
+  database : 'movierecord'
+});
+
+connection.connect(function(err){
+  if(err){
+    console.error('mysql connection error');
+    console.error(err);
+    throw err;
+  }
+});
+
+/*============mysql 연동===================== */
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,13 +47,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/login',loginRouter);
+
+app.use(history());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
 
 // error handler
 app.use(function(err, req, res, next) {

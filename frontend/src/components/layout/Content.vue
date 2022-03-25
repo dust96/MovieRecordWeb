@@ -24,9 +24,5 @@
 </script>
 
 <style>
-    .content{
-        width:100%;
-        height: 85%;
-    }
 
 </style>

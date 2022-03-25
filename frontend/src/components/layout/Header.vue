@@ -12,14 +12,5 @@ export default {
 </script>
 
 <style >
-    .titlebar{
-        background: #bea5ef;
-        color : #ffffff;
-        height:5%;
-        width:100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size:150%;
-    }
+    
 </style>

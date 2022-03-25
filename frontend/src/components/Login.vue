@@ -45,16 +45,25 @@
     methods:{
       onSubmit(e){
           e.preventDefault();
-        
-          // this.$axios
-          //   .get("DBconnection/conn.php")
-          //   .then((res)=>{
-          //     console.log(res)
-          //     console.log(res.data);
-          //   })
-          //   .catch((error) => { console.log(error); }) 
-          //   .finally(() => { console.log("항상 마지막에 실행"); });
-          this.$router.push({path:'main'})
+          // this.$http.get('/api/login').then(res => { console.log(res.data) })
+
+          this.$http
+            .post("/api/login",{
+              user:this.form,
+            })
+            .then(
+              (res) =>{
+                console.log(res.data.message);
+                this.$router.push({path:'main'})
+              },
+              (err) =>{
+                alert(err+"login failed")
+              }
+            )
+            .catch((err)=>{
+              alert(err)
+            });
+          
 
       },
     }

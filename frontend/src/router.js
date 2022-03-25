@@ -14,7 +14,8 @@ const router = new VueRouter({
             children:[
                 {path:"",component:Calendar}
             ]
-        }
+        },
+        {path:"*", component: Login},
     ]
 });
 

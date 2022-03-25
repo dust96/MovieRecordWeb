@@ -111,11 +111,6 @@
 </script>
 
 <style>
-  .week-grid{
-    width:100%;
-    height:90%;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }   
+ 
 
 </style>
