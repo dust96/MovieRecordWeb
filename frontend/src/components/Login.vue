@@ -51,9 +51,9 @@
               ,{"Content-Type":"application-json"})
             .then(
               (res) =>{
-               
+                
                 if(res.data.user){
-                 
+
                   this.$store.commit('setUser',res.data.user);
                   this.$router.push({path:'main'});
                 }

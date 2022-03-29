@@ -30,7 +30,7 @@ exports.config = (passport) => {
         done(null, user);
     });
 
-    passport.deserializeUser((id,done)=>{
+    passport.deserializeUser((user,done)=>{
 
         done(null, user);
     });
@@ -43,12 +43,13 @@ exports.config = (passport) => {
             session:false
         },(id,password, done)=>{
             
-            var sql = 'select * from tb_user where user_id=? and user_pw =?';
+            var sql = "select user_code,user_name, master from tb_user where user_id=? and user_pw =? and buse='1'";
             connection.query(sql,[id,password],function(err,result){
+                
                 if(err) console.log('mysql error');
                
                 if(result.length>0){
-                    return done(null, result,{message:"로그인 성공"})
+                    return done(null, result[0],{message:"로그인 성공"})
                 }
                 else {
                     return done(null, false, {message:"가입되지 않은 회원"})

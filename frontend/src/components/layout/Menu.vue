@@ -26,6 +26,7 @@
         ChangePage(key){
             
             this.$router.push({path:"/main/"+key})
+            
         }
     }
     

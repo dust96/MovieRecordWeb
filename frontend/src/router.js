@@ -12,7 +12,8 @@ const router = new VueRouter({
         {path:"/", component: Login},
         {path:"/main", component: Main,
             children:[
-                {path:"",component:Calendar}
+                {path:"",component:Calendar},
+                {path:"calendar",component:Calendar}
             ]
         },
         {path:"*", component: Login},

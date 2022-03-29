@@ -6,27 +6,28 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/',function(req,res,next){
-  // console.log(req)
-  // if(req.isAuthenticated()&&req.user){
-  //   return res.json({user:req.user});
-  // }
+
+  if(req.isAuthenticated()&&req.user){
+    return res.json({user:req.user});
+  }
 
   return res.json({user:null});
 })
 
 
 router.post('/',function(req,res,next){
-  console.log(req.isAuthenticated())
+
   // const user = {
   //   'userid':req.body.user.id,
   //   'password':req.body.user.password
   // };
 
-  // if(req.isAuthenticated()){
-  //   return res.redirect('/');
-  // }
+  if(req.isAuthenticated()){
+    return res.redirect('/');
+  }
 
   passport.authenticate('local',(authError,user,info) =>{
+    
     if(authError){
       console.error(authError);
       return next(authError);
@@ -41,7 +42,7 @@ router.post('/',function(req,res,next){
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/');
+      return res.json({user:user, message:info});
     });
   })(req,res,next);
 
