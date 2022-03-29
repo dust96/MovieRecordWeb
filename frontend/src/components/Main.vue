@@ -19,6 +19,23 @@
     components: {
       Header,
       Menu
+    },
+    created(){
+      this.$http.get("/api/login")
+                .then((res)=>{
+                  const user = res.data.user;
+                  if(user){
+                    this.$store.commit("setUser",user);
+                  }
+                  else{
+                  }
+                })
+                .catch((err)=>{
+                  console.error(err);
+                });
+    },
+    computed:{
+      user(){return this.$store.getters.user;}
     }
     
   }

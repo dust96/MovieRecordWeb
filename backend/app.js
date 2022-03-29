@@ -3,12 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var logger = require('morgan');
 const history = require('connect-history-api-fallback');
 
-
-var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/login');
 
 
 
@@ -34,6 +30,19 @@ connection.connect(function(err){
 
 /*============mysql 연동===================== */
 
+/*============세션===================== */
+var session = require('express-session');
+var passport = require('passport');
+require('./passport').config(passport);
+require('dotenv').config();
+/*============세션===================== */
+
+
+/*============라우터===================== */
+var indexRouter = require('./routes/index');
+var loginRouter = require('./routes/login');
+/*============리우터===================== */
+
 var app = express();
 
 
@@ -47,19 +56,34 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*============세션===================== */
+app.use(cookieParser());
+app.use(session({
+  resave : false,
+  saveUninitialized : true,
+  secret:'keyboard',
+  cookie:{
+    httpOnly:true
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-app.use('/', indexRouter);
-app.use('/api/login',loginRouter);
-
-app.use(history());
-app.use(express.static(path.join(__dirname, 'public')));
-
+/*============세션===================== */
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
 // });
 
+
+/*============라우터===================== */
+app.use('/', indexRouter);
+app.use('/api/login',loginRouter);
+
+app.use(history()); //새로고침/뒤로가기 404 에러 방지
+app.use(express.static(path.join(__dirname, 'public')));
+
+/*============라우터===================== */
 
 // error handler
 app.use(function(err, req, res, next) {

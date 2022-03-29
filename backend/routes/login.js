@@ -1,65 +1,50 @@
-var express = require('express');
-var router = express.Router();
-const bcrypt = require('bcryptjs');
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
 
-var mysql = require('mysql');
 
-var connection = mysql.createConnection({
-  host:'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'qaplwsok01',
-  database : 'movierecord'
-});
-
-connection.connect(function(err){
-  if(err){
-    console.error('mysql connection error');
-    console.error(err);
-    throw err;
-  }
-  
-});
 
 /* GET users listing. */
+router.get('/',function(req,res,next){
+  // console.log(req)
+  // if(req.isAuthenticated()&&req.user){
+  //   return res.json({user:req.user});
+  // }
 
-
-router.post('/',function(req,res){
-  const user = {
-    'userid':req.body.user.id,
-    'password':req.body.user.password
-  };
-
-  connection.query('select * from tb_user where user_id ="'+user.userid+'"', function(err, row){
-    if(err){
-
-      res.json({
-        success:false,
-        message : "login fail"
-      })
-    }
-    res.json({
-        success : true,
-        message : "login successful"
-      }
-    );
-
-    // if(row[0] != undefined && row[0].user_id === user.userid){
-    //   bcrypt.compare(user.password, row[0].user_pw, function(err, res2){
-    //     if(res2){
-    //       res.json({
-    //         success : true,
-    //         message : "login successful"
-    //       })
-    //     }
-    //     else{
-    //       res.json({
-    //         message : "login failed"
-    //       })
-    //     }
-    //   })
-    // }
-  })
+  return res.json({user:null});
 })
+
+
+router.post('/',function(req,res,next){
+  console.log(req.isAuthenticated())
+  // const user = {
+  //   'userid':req.body.user.id,
+  //   'password':req.body.user.password
+  // };
+
+  // if(req.isAuthenticated()){
+  //   return res.redirect('/');
+  // }
+
+  passport.authenticate('local',(authError,user,info) =>{
+    if(authError){
+      console.error(authError);
+      return next(authError);
+    }
+
+    if(!user){
+      return res.json(info);
+    }
+    
+    return req.login(user,(loginError)=>{
+      if(loginError){
+        console.error(loginError);
+        return next(loginError);
+      }
+      return res.redirect('/');
+    });
+  })(req,res,next);
+
+});
 
 module.exports = router;

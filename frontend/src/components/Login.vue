@@ -9,7 +9,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="form.id"
+          v-model="id"
           type="text"
           placeholder="ID"
           required
@@ -19,7 +19,7 @@
       <b-form-group id="input-group-2" label="PASSWORD" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.password"
+          v-model="password"
           placeholder="PASSWORD"
           required
         ></b-form-input>
@@ -36,32 +36,37 @@
     name: 'Login',
     data() {
       return {
-          form:{
-              id:'111',
-              password:'111' 
-          }
+        id:'',
+        password:'' 
       }
     },
     methods:{
       onSubmit(e){
           e.preventDefault();
-          // this.$http.get('/api/login').then(res => { console.log(res.data) })
-
+          const id = this.id;
+          const password = this.password;
           this.$http
-            .post("/api/login",{
-              user:this.form,
-            })
+            .post("/api/login"
+              ,{id,password}
+              ,{"Content-Type":"application-json"})
             .then(
               (res) =>{
-                console.log(res.data.message);
-                this.$router.push({path:'main'})
+               
+                if(res.data.user){
+                 
+                  this.$store.commit('setUser',res.data.user);
+                  this.$router.push({path:'main'});
+                }
+                else if(res.data.message){
+                  alert(res.data.message)
+                }
               },
               (err) =>{
                 alert(err+"login failed")
               }
             )
             .catch((err)=>{
-              alert(err)
+              console.error(err)
             });
           
 
