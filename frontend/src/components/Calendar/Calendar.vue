@@ -3,8 +3,9 @@
   <div class="calendar_content">
     <SelectMonth v-bind:currentyearmonth="this.currentYearMonth" v-on:changemonth="setCurrentYearMonth"></SelectMonth>
     <DayDiv></DayDiv>
-    <DateDiv v-bind:currentyearmonth="this.currentYearMonth" :key="this.currentYearMonth.currentMonth"></DateDiv>
+    <DateDiv v-bind:currentyearmonth="this.currentYearMonth" :usercode="usercode" :key="this.currentYearMonth.currentMonth"></DateDiv>
   </div>
+  
 </template>
 
 <script>
@@ -20,6 +21,9 @@
         DayDiv,
         SelectMonth
     },
+    props:[
+      'usercode'
+    ],
     data(){
       return {
         currentYearMonth:{

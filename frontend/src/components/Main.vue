@@ -3,22 +3,29 @@
   <div class="mainpage">
     <Header></Header>
     <div class="content">
-      <router-view></router-view>
+      <router-view v-bind:usercode="user.user_code"></router-view>
     </div>
-    <Menu></Menu>
-
+    <AddMenu v-show="addmenu" v-bind:addmenu="addmenu" @add:menu="addMenu"></AddMenu>
+    <Menu v-bind:addmenu="addmenu" @add:menu="addMenu"></Menu>
   </div>
 </template>
 
 <script>
   import Header from "./layout/Header";
   import Menu from "./layout/Menu";
+  import AddMenu from "./layout/AddMenu";
 
   export default {
     name: 'Main',
     components: {
       Header,
-      Menu
+      Menu,
+      AddMenu
+    },
+    data(){
+      return {
+        addmenu : false
+      }
     },
     created(){
       this.$http.get("/api/login")
@@ -28,6 +35,7 @@
                     this.$store.commit("setUser",user);
                   }
                   else{
+                    this.$router.push({path:"/"})
                   }
                 })
                 .catch((err)=>{
@@ -36,8 +44,12 @@
     },
     computed:{
       user(){return this.$store.getters.user;}
+    },
+    methods:{
+      addMenu(addboolen){
+          this.addmenu = addboolen;
+      }
     }
-    
   }
    
 </script>

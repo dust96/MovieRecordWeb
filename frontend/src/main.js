@@ -10,6 +10,7 @@ import './style/layout.css'
 import './style/main.css'
 import './style/menu.css'
 import './style/calendar.css'
+import './style/addmenu.css'
 import axios from 'axios'
 
 

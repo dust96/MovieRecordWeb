@@ -2,7 +2,7 @@
 <template>
   <div class="menu">
         <div class="menulist" :key="menu.key" @click="ChangePage(menu.key)" v-for="menu in menulist">
-            <div class="menuicon"><img :src="require(`@/assets/${menu.icon}.png`)"></div>
+            <div class="menuicon"><img :src="require(`@/assets/menu/${menu.icon}.png`)"></div>
             <div class="menuname"><span>{{menu.text}}</span></div>
         </div>
   </div>
@@ -22,10 +22,18 @@
             ]
         }
     },
+    props:[
+      'addmenu'
+    ],
     methods:{
         ChangePage(key){
-            
-            this.$router.push({path:"/main/"+key})
+            if(key != 'home'){
+              this.$router.push({path:"/main/"+key}).catch(()=>{});
+            }
+            else if(key == 'home'){
+              
+              this.$emit('add:menu',true);
+            }
             
         }
     }

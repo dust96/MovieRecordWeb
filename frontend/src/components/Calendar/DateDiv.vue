@@ -14,7 +14,8 @@
         WeekDiv
     },
     props:[
-      'currentyearmonth'
+      'currentyearmonth',
+      'usercode'
     ],
     data(){
       return {
@@ -29,6 +30,11 @@
 
       this.year = this.currentyearmonth.currentYear;
       this.month = this.currentyearmonth.currentMonth;
+      this.$http.get('/api/calendar',{
+        params:{usercode:this.usercode,year:this.year,month:this.month}
+      }).then(res=>{
+        console.log(res)
+      })
       this.getCalendarDate();
     },
     updated(){
