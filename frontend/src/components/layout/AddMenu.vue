@@ -19,8 +19,8 @@
         return {
             menulist:[
                 {text:"관람", icon:"add", key:"addlog"},
-                {text:"굿즈", icon:"stamp", key:"stamplog"},
-                {text:"영화", icon:"movie", key:"moviedata"}
+                {text:"굿즈", icon:"stamp", key:"addgoods"},
+                {text:"영화", icon:"movie", key:"addmovie"}
             ]
         }
     },
@@ -36,7 +36,7 @@
         },
         ChangeAddPage(key){
             this.$emit('add:menu',false);
-            this.$router.push({path:"/main/"+key}).catch(()=>{});
+            this.$router.push({path:"/add/"+key}).catch(()=>{});
             
         }
     }

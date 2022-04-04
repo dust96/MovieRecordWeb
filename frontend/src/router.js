@@ -3,7 +3,10 @@ import VueRouter from "vue-router";
 import Login from "./components/Login";
 import Main from "./components/Main";
 import Calendar from "./components/Calendar/Calendar";
-import AddLog from "./components/Calendar/AddLog";
+import AddLog from "./components/AddForm/AddLog";
+import AddGoods from "./components/AddForm/AddGoods";
+import AddMovie from "./components/AddForm/AddMovie";
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -12,12 +15,13 @@ const router = new VueRouter({
         {path:"/", component: Login},
         {path:"/main", component: Main,
             children:[
-                {path:"",component:Calendar},
-                {path:"calendar",component:Calendar},
-                {path:"addlog",component:AddLog}
+                {path:"",component:Calendar}
             ]
         },
-        {path:"*", component: Login},
+        {path:"/add/addlog",component:AddLog},
+        {path:"/add/addgoods",component:AddGoods},
+        {path:"/add/addmovie",component:AddMovie},
+        {path:"*", component: Login}
     ]
 });
 

@@ -38,10 +38,13 @@ require('dotenv').config();
 /*============세션===================== */
 
 
+
+
 /*============라우터===================== */
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var calendarRouter = require('./routes/calendar');
+var movieRouter = require('./routes/movie');
 /*============리우터===================== */
 
 var app = express();
@@ -81,6 +84,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/api/login',loginRouter);
 app.use('/api/calendar',calendarRouter);
+app.use('/api/movie',movieRouter);
 
 app.use(history()); //새로고침/뒤로가기 404 에러 방지
 app.use(express.static(path.join(__dirname, 'public')));
