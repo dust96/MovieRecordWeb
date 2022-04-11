@@ -46,6 +46,23 @@ router.get('/',function(req,res,next){
     })
 })
 
+router.post('/', function(req,res){
 
+    const {user_code, form} = req.body;
+   
+    var sql = "insert into tb_calendar_log(user_code,ilja,movie_code,theater_code,viewing_start,viewing_end,hall_number,seat_row,seat_number,write_datetime) values ?"
+    var values = [[user_code, form.ilja.replace(/\-/gi,""), form.movie, form.theater, form.viewing_start.replace(/\:/gi,""), 
+    form.viewing_end.replace(/\:/gi,""), form.hall_number, form.seat.substring(0,1), form.seat.substring(1), new Date()]];
+
+    
+    connection.query(sql,[values], function(err,result){
+       
+        if(err) return res.json({ result :false, message:"기록 추가 오류"});
+        
+        return res.json({ result : true, message:"기록 추가 완료"});
+    });
+    
+    
+});
 
 module.exports = router;

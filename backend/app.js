@@ -45,6 +45,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var calendarRouter = require('./routes/calendar');
 var movieRouter = require('./routes/movie');
+var optionRouter = require('./routes/option');
 /*============리우터===================== */
 
 var app = express();
@@ -85,6 +86,7 @@ app.use('/', indexRouter);
 app.use('/api/login',loginRouter);
 app.use('/api/calendar',calendarRouter);
 app.use('/api/movie',movieRouter);
+app.use('/api/option',optionRouter);
 
 app.use(history()); //새로고침/뒤로가기 404 에러 방지
 app.use(express.static(path.join(__dirname, 'public')));
